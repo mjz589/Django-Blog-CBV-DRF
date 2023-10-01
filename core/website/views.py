@@ -5,9 +5,10 @@ from django.views.generic import (
 )
 
 from django.urls import reverse_lazy
-from .models import Skill
+from .models import Skill, Portfolio
 from accounts.models import Profile
-# from core.celery import delete_rejected_comments
+from core.celery import delete_rejected_comments
+from datetime import datetime
 
 # Create your views here.
 
@@ -15,37 +16,34 @@ class IndexView(ListView):
     model = Skill
     template_name = 'index.html'
     context_object_name = "skills"
-    # delete_rejected_comments.delay()
+    delete_rejected_comments.delay()
 
     def get_queryset(self):
         # return all the Skill objects
         return self.model.objects.all()
 
 class AboutView(ListView):
-    model = Skill
+    model = Profile
     template_name = 'index.html'
-    context_object_name = "skills"
-    # delete_rejected_comments.delay()
+    context_object_name = "profile"
 
     def get_queryset(self):
         # return all the Skill objects
-        return self.model.objects.all()
+        return self.model.objects.get(user__email="admin@admin.com")
 
 class PortfolioView(ListView):
-    model = Skill
+    model = Portfolio
     template_name = 'index.html'
-    context_object_name = "skills"
-    # delete_rejected_comments.delay()
+    context_object_name = "work"
 
     def get_queryset(self):
         # return all the Skill objects
-        return self.model.objects.all()
+        return self.model.objects.filter(created_date__gt=datetime.now())
 
 class ContactView(ListView):
     model = Skill
     template_name = 'index.html'
     context_object_name = "skills"
-    # delete_rejected_comments.delay()
 
     def get_queryset(self):
         # return all the Skill objects

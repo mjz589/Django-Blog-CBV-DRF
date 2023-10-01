@@ -40,7 +40,6 @@ class Post(models.Model):
 
     publish_status = models.BooleanField(default=False, )
     published_date = models.DateTimeField(null=True)
-    login_require = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -66,4 +65,4 @@ class Comment(models.Model):
         ordering = ('-created_date',)
     def __str__(self):
         return self.name
-    
+
