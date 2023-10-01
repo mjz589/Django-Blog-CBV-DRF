@@ -1,18 +1,18 @@
 from django.urls import path, include
 from .views import (
-    TaskList,
-    About,
-    Portfolio,
-    Contact,
+    IndexView,
+    AboutView,
+    PortfolioView,
+    ContactView,
 )
 
 app_name = "website"
 
 urlpatterns = [
-    path("", TaskList.as_view(), name="task_list"),
-    path("", About.as_view(), name="about"),
-    path("", Portfolio.as_view(), name="portfolio"),
-    path("", Contact.as_view(), name="contact"),
+    path("", IndexView.as_view(), name="index"),
+    path("about/", AboutView.as_view(), name="about"),
+    path("portfolio/", PortfolioView.as_view(), name="portfolio"),
+    path("contact/", ContactView.as_view(), name="contact"),
 
     path("api/v1/", include("todo.api.v1.urls")),
 ]

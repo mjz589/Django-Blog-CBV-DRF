@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- <title>  -->
+{% block title %} EmJayZi {% endblock %}
+<!-- <extra css>-->
+{% block extra_css %}{% endblock %}
+
+<!-- <body> -->
+{% block content %}
+
+  <!-- ======= Hero Section ======= -->
+  <div id="hero" class="hero route bg-image" style="background-image: url({% static 'img/hero-bg.jpg' %})">
+    <div class="overlay-itro"></div>
+    <div class="hero-content display-table">
+      <div class="table-cell">
+        <div class="container">
+          <!--<p class="display-6 color-d">Hello, world!</p>-->
+          <h1 class="hero-title mb-4">I'm Mohamad javad Zare</h1>
+          <p class="hero-subtitle"><span class="typed" data-typed-items="Developer, Freelancer, Computer Science Student"></span></p>
+          <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
+        </div>
+      </div>
+    </div>
+  </div><!-- End Hero Section -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    {% include 'index/sections/about.html' %}
+    <!-- End About Section -->
+
+    <!-- ======= Services Section ======= -->
+    {% include 'index/sections/services.html' %}
+    <!-- End Services Section -->
+
+    <!-- ======= Counter Section ======= -->
+    {% include 'index/sections/counter.html' %}
+    <!-- End Counter Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    {% include 'index/sections/portfolio.html' %}
+    <!-- End Portfolio Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    {% include 'index/sections/testimonials.html' %}
+    <!-- End Testimonials Section -->
+
+    <!-- ======= Blog Section ======= -->
+    {% include 'index/sections/blog-latest.html' %}
+    <!-- End Blog Section -->
+
+    <!-- ======= Contact Section ======= -->
+    {% include 'index/sections/contact.html' %}
+    <!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}
+<!-- </body> -->
+
+<!-- <extra js>-->
+{% block extra_js %}{% endblock %}
