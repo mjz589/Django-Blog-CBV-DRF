@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from accounts.models import User, Profile
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from ckeditor_uploader.fields import RichTextUploadingField 
@@ -22,7 +23,7 @@ class Post(models.Model):
         if filesize > megabyte_limit*1024*1024:
             raise ValidationError("Max image size is %sMB" % str(megabyte_limit))
     image = models.ImageField(upload_to='blog/', default='blog/default.jpg', validators=[validate_image])
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey("accounts.Profile", on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=100)
     summary = models.TextField(blank=True)
     content = RichTextUploadingField() # CKEditor Rich Text Field
