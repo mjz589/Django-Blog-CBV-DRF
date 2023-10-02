@@ -16,6 +16,9 @@
                   </div>
                   <div>
                     <form action="{% url 'website:contact' %}" method="post" role="form" class="php-email-form">
+                      
+                      {% csrf_token %}
+
                       <div class="row">
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
@@ -38,7 +41,7 @@
                           </div>
                         </div>
                         <div class="col-md-12 text-center my-3">
-                          <div class="loading">Loading</div>
+                          <!-- <div class="loading">Loading</div> -->
                           <div class="error-message"></div>
                           <div class="sent-message">Your message has been sent. Thank you!</div>
                         </div>

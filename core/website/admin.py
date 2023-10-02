@@ -10,10 +10,9 @@ admin.site.register(Skill)
 class PortfolioAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     empty_value_display = '-'
-    list_display = ('name', 'subject', 'post',  'approved', 'created_date',)
-    list_filter = ('approved',)
+    list_display = ('title', 'created_date')
     ordering = ('-created_date',)
-    search_fields = ('post', 'email', 'subject','name',)
+    search_fields = ('title', 'description')
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
