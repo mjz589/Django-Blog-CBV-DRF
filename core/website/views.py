@@ -15,7 +15,7 @@ from blog.models import Post
 
 class IndexView(ListView):
     model = Skill
-    template_name = '/index.html'
+    template_name = 'index/index.html'
     context_object_name = "skills"
     # delete_rejected_comments.delay()
 
@@ -25,7 +25,7 @@ class IndexView(ListView):
 
 class AboutView(ListView):
     model = Profile
-    template_name = 'index.html'
+    template_name = 'index/sections/about.html'
     context_object_name = "profile"
 
     def get_queryset(self):
@@ -34,7 +34,7 @@ class AboutView(ListView):
 
 class PortfolioView(ListView):
     model = Portfolio
-    template_name = 'index/index.html'
+    template_name = 'index/sections/portfolio.html'
     context_object_name = "works"
     
     def get_queryset(self):
@@ -43,7 +43,7 @@ class PortfolioView(ListView):
 
 class BlogView(ListView):
     model = Post
-    template_name = 'index/index.html'
+    template_name = 'index/sections/blog-latest.html'
     context_object_name = "posts"
 
     def get_queryset(self):
