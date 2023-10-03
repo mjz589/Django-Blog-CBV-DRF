@@ -1,4 +1,5 @@
 {% load static %}
+{% load thumbnail %}
 
 <section id="work" class="portfolio-mf sect-pt4 route">
     <div class="container">
@@ -9,37 +10,42 @@
               Portfolio
             </h3>
             <p class="subtitle-a">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Take a look at my works.
             </p>
             <div class="line-mf"></div>
           </div>
         </div>
       </div>
       <div class="row">
+        {% for work in works %}
         <div class="col-md-4">
           <div class="work-box">
-            <a href="{% static 'img/work-1.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox">
+            {% thumbnail work.image "960x600" crop="center" as im %}
+            <a href="{{im.url}}" data-gallery="portfolioGallery" class="portfolio-lightbox">
               <div class="work-img">
-                <img src="{% static 'img/work-1.jpg' %}" alt="" class="img-fluid">
+                <img src="{{im.url}}" class="img-fluid" max-width="{{im.width}}"
+                max-height="{{im.height}}" alt="">
               </div>
             </a>
+            {% endthumbnail %}
             <div class="work-content">
               <div class="row">
                 <div class="col-sm-8">
-                  <h2 class="w-title">Lorem impsum dolor</h2>
+                  <h2 class="w-title">{{work.title}}</h2>
                   <div class="w-more">
-                    <span class="w-ctegory">Web Design</span> / <span class="w-date">18 Sep. 2018</span>
+                    <span class="w-ctegory">{{work.category}}</span> / <span class="w-date">{{work.created_date|date:"d M Y"}}</span>
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="w-like">
-                    <a href="portfolio-details.html"> <span class="bi bi-plus-circle"></span></a>
+                    <a href="{% url 'portfolio:single' pid=work.id %}"> <span class="bi bi-plus-circle"></span></a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {% endfor %}
         <div class="col-md-4">
           <div class="work-box">
             <a href="{% static 'img/work-2.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox">

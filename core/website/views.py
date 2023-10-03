@@ -6,10 +6,11 @@ from django.views.generic import (
 )
 from core.celery import delete_rejected_comments
 from django.urls import reverse_lazy
-from .models import Skill, Portfolio, Contact
+from .models import Skill, Contact
 from accounts.models import Profile
 from .forms import CreateContactForm
 from blog.models import Post
+from portfolio.models import Portfolio
 
 # Create your views here.
 
@@ -23,32 +24,23 @@ class IndexView(ListView):
         # return all the Skill objects
         return self.model.objects.all()
 
-class AboutView(ListView):
-    model = Profile
-    template_name = 'index/sections/about.html'
-    context_object_name = "profile"
 
-    def get_queryset(self):
-        # return all the Skill objects
-        return self.model.objects.get(user__email="admin@admin.com")
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        # profile = Profile.objects.filter(user__email="admin@admin.com")
+        portfolio = Portfolio.objects.all().order_by('-created_date')[:6]
+        posts = Post.objects.all().order_by('-created_date')[:6]
+        profile = Profile.objects.get(user__email="admin@admin.com")
+        context.update(
+            {
+                # "profile": profile,
+                "works": portfolio,
+                "posts": posts,
+            }
+        )
+        return context
 
-class PortfolioView(ListView):
-    model = Portfolio
-    template_name = 'index/sections/portfolio.html'
-    context_object_name = "works"
-    
-    def get_queryset(self):
-        # return 6 last works
-        return self.model.objects.all().order_by('-created_date')[:6]
 
-class BlogView(ListView):
-    model = Post
-    template_name = 'index/sections/blog-latest.html'
-    context_object_name = "posts"
-
-    def get_queryset(self):
-        # return 6 last posts
-        return self.model.objects.all().order_by('-created_date')[:6]
  
 class ContactView(CreateView):
     model = Contact
