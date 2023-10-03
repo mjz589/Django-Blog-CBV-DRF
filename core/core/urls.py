@@ -43,6 +43,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("", include("website.urls")),
     path("blog/", include("blog.urls")),
+    path("portfolio/", include("portfolio.urls")),
     path("api-auth/", include("rest_framework.urls")),
     # Api Documentation
     path(

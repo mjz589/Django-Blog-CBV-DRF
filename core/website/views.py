@@ -17,7 +17,7 @@ class IndexView(ListView):
     model = Skill
     template_name = 'index/index.html'
     context_object_name = "skills"
-    # delete_rejected_comments.delay()
+    delete_rejected_comments.delay()
 
     def get_queryset(self):
         # return all the Skill objects

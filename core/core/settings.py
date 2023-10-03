@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "website.apps.WebsiteConfig",
     "blog.apps.BlogConfig",
+    "portfolio.apps.PortfolioConfig",
     # rest framework
     "rest_framework",
     "django_filters",
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
     "robots",
     "ckeditor",  # CKEditor config
     "ckeditor_uploader",  # CKEditor media uploader
-    "captcha",
+    # "captcha",
     "compressor",
     "requests",
 ]
@@ -258,20 +259,20 @@ EMAIL_PORT = 25
 LOGIN_REDIRECT_URL = "accounts/login/"
 # LOGOUT_REDIRECT_URL = ''
 
-# # access for api from outside (any service can access)
-# CORS_ALLOW_ALL_ORIGINS = True
+# access for api from outside (any service can access)
+CORS_ALLOW_ALL_ORIGINS = True
 
-# # celery configs
-# CELERY_BROKER_URL = "redis://redis:6379/1"
+# celery configs
+CELERY_BROKER_URL = "redis://redis:6379/1"
 
-# # caching configs
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://redis:6379/2",
-#         # "TIMEOUT": 300, BY DEFAULT IS 5 MINUTES
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         },
-#     }
-# }
+# caching configs
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/2",
+        # "TIMEOUT": 300, BY DEFAULT IS 5 MINUTES
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
