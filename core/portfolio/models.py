@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField 
 from django.core.exceptions import ValidationError
-from datetime import date
+from datetime import datetime
 
 # Create your models here.
 
@@ -25,9 +25,15 @@ class Portfolio(models.Model):
             raise ValidationError("Max image size is %sMB" % str(megabyte_limit))
     
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='portfolio/', default='portfolio/default.jpg', validators=[validate_image])
+    image1 = models.ImageField(upload_to='portfolio/', default='portfolio/default.jpg', validators=[validate_image])
+    image2 = models.ImageField(upload_to='portfolio/', null=True, blank=True, validators=[validate_image])
+    image3 = models.ImageField(upload_to='portfolio/', null=True, blank=True, validators=[validate_image])
     description = RichTextUploadingField() # CKEditor Rich Text Field
     category = models.ForeignKey(PortfolioCategory, on_delete=models.CASCADE,)
+    client = models.CharField(max_length=255, default="myself")
+
+    project_date = models.DateTimeField(default=datetime.today())
+    project_url = models.URLField(max_length=255, null=True , blank=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

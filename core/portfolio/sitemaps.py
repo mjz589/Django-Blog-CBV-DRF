@@ -10,7 +10,7 @@ class portfolioitemap(Sitemap):
         return Portfolio.objects.filter(publish_status=True)
 
     def lastmod(self, obj):
-        return obj.published_date
+        return obj.updated_date
     
     def location(self, item):
         return reverse('portfolio:single', kwargs={'pid':item.id})

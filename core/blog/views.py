@@ -95,6 +95,10 @@ def blog_single_view(request,pid):
         else:
             return render(request, 'account/login.html', )
             
+# class BlogDetail(DetailView):
+#     model = Post
+#     template_name = "blog/blog-details.html"
+#     context_object_name = "post"
 
 def blog_search(request):
     posts =Post.objects.filter(published_date__lte=timezone.now())

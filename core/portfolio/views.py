@@ -16,7 +16,7 @@ from django.views.generic import (
 # Create your views here.
 
 def portfolio_view(request, *args, **kwargs):
-    portfolio = Portfolio.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    portfolio = Portfolio.objects.all()
     
     # pagination
     portfolio = Paginator(portfolio, 3)
@@ -33,11 +33,13 @@ def portfolio_view(request, *args, **kwargs):
 
 
 
-def portfolio_single_view(request, pid):
-    Portfolio = get_object_or_404(Portfolio, pk=pid , published_date__lte=timezone.now())
-    related_portfolio = Portfolio.objects.filter(type=Portfolio.type)
-    context = {'Portfolio': Portfolio , 'related_portfolio':related_portfolio , }
-    return render(request, 'Portfolio/Portfolio_details.html', context)
+# def portfolio_single_view(request, pid):
+#     Portfolio = get_object_or_404(Portfolio, pk=pid , published_date__lte=timezone.now())
+#     related_portfolio = Portfolio.objects.filter(type=Portfolio.type)
+#     context = {'Portfolio': Portfolio , 'related_portfolio':related_portfolio , }
+#     return render(request, 'Portfolio/Portfolio_details.html', context)
 
 class PortfolioDetail(DetailView):
-    pass
+    model = Portfolio
+    template_name = "portfolio/portfolio-details.html"
+    context_object_name = "work"
