@@ -8,6 +8,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from accounts.models import User, Profile
+from django.views.generic import (
+    View,
+    ListView,
+    DetailView,
+    CreateView,
+)
 # Create your views here.
 
 def blog_view(request, **kwargs):
@@ -44,61 +50,65 @@ def blog_view(request, **kwargs):
     return render(request, 'blog/blog-home.html', context)
 
 
-def blog_single_view(request,pid):
-    post = get_object_or_404(Post, pk=pid , published_date__lte=timezone.now())
+# def blog_single_view(request,pid):
+#     post = get_object_or_404(Post, pk=pid , published_date__lte=timezone.now())
 
-    post.counted_views +=1  # count views
-    post.save()
+#     post.counted_views +=1  # count views
+#     post.save()
 
-    next_post = Post.objects.filter(publish_status=True,
-                                     published_date__gt=post.published_date,
-                                        ).order_by('published_date').first()
-    previous_post = Post.objects.filter(publish_status=True,
-                                         published_date__lt=post.published_date,
-                                            ).order_by('published_date').last()
+#     next_post = Post.objects.filter(publish_status=True,
+#                                      published_date__gt=post.published_date,
+#                                         ).order_by('published_date').first()
+#     previous_post = Post.objects.filter(publish_status=True,
+#                                          published_date__lt=post.published_date,
+#                                             ).order_by('published_date').last()
     
-    # Comment and like Area
-    comments = Comment.objects.filter(post=post.id,approved=True)
-    if request.method == 'POST':
-        if request.POST['form_id'] == 'like':
-            post.counted_likes +=1 # count likes
-            post.save()
-        elif request.POST['form_id'] == 'comment':
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                # new_comment = form.save(commit=False)
-                # new_comment.name = 'Unknown'     # warning simple-captcha is enabled.
-                form.save()
-                messages.add_message(request, messages.SUCCESS, 'Your comment submited successfully.')
-            else:
-                messages.add_message(request, messages.ERROR, "Your comment didn't submit, make sure you have a comment ticket and try again.")
+#     # Comment and like Area
+#     comments = Comment.objects.filter(post=post.id,approved=True)
+#     if request.method == 'POST':
+#         if request.POST['form_id'] == 'like':
+#             post.counted_likes +=1 # count likes
+#             post.save()
+#         elif request.POST['form_id'] == 'comment':
+#             form = CommentForm(request.POST)
+#             if form.is_valid():
+#                 # new_comment = form.save(commit=False)
+#                 # new_comment.name = 'Unknown'     # warning simple-captcha is enabled.
+#                 form.save()
+#                 messages.add_message(request, messages.SUCCESS, 'Your comment submited successfully.')
+#             else:
+#                 messages.add_message(request, messages.ERROR, "Your comment didn't submit, make sure you have a comment ticket and try again.")
 
-    if not post.login_require :
-        form = CommentForm()
-        context = { 'post': post,
-                    'next_post': next_post,
-                    'previous_post': previous_post,
-                    'comments': comments,
-                    'form': form,
-                        }
-        return render(request, 'blog/blog-single.html', context)
-    else:
-        if request.user.is_authenticated:
-            form = CommentForm()
-            context = { 'post': post,
-                        'next_post': next_post,
-                        'previous_post': previous_post,
-                        'comments': comments,
-                        'form': form,
-                            }
-            return render(request, 'blog/blog-single.html', context)
-        else:
-            return render(request, 'account/login.html', )
+#     if not post.login_require :
+#         form = CommentForm()
+#         context = { 'post': post,
+#                     'next_post': next_post,
+#                     'previous_post': previous_post,
+#                     'comments': comments,
+#                     'form': form,
+#                         }
+#         return render(request, 'blog/blog-single.html', context)
+#     else:
+#         if request.user.is_authenticated:
+#             form = CommentForm()
+#             context = { 'post': post,
+#                         'next_post': next_post,
+#                         'previous_post': previous_post,
+#                         'comments': comments,
+#                         'form': form,
+#                             }
+#             return render(request, 'blog/blog-single.html', context)
+#         else:
+#             return render(request, 'account/login.html', )
             
-# class BlogDetail(DetailView):
-#     model = Post
-#     template_name = "blog/blog-details.html"
-#     context_object_name = "post"
+class BlogDetail(DetailView):
+    model = Post
+    template_name = "blog/blog-details.html"
+    context_object_name = "post"
+
+class CommentCreate(CreateView):
+    model = Comment
+    template_name = "blog/blog-details.html"
 
 def blog_search(request):
     posts =Post.objects.filter(published_date__lte=timezone.now())

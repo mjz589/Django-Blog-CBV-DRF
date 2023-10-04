@@ -35,8 +35,9 @@ class Post(models.Model):
                                               max_upload_size=20971520,blank=True, null=True, verbose_name='video')
     category = models.ManyToManyField(Category)
     tags = TaggableManager()
+    estimated_time = models.PositiveIntegerField(default=10, verbose_name="Estimated time (minutes)")
     counted_views = models.PositiveIntegerField(default=0)
-
+    
     counted_likes = models.PositiveIntegerField(default=0)
 
     publish_status = models.BooleanField(default=False, )
