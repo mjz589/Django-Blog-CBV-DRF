@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from blog.forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import reverse_lazy
 from accounts.models import User, Profile
 from django.views.generic import (
     View,
@@ -109,6 +109,33 @@ class BlogDetail(DetailView):
 class CommentCreate(CreateView):
     model = Comment
     template_name = "blog/blog-details.html"
+    fields = ['message', 'name', 'email',]
+
+    def form_valid(self, form):
+        form.instance.post = Post.objects.get(id=self.kwargs['pk'])
+        return super().form_valid(form)
+
+class CommentList(ListView):
+    model = Comment
+    template_name = "blog/blog-details.html"
+    def get_context_data(self, **kwargs):
+        context = super(CommentList, self).get_context_data(**kwargs)
+        post = Post.objects.get(id=self.kwargs['pk'])
+        profile = Profile.objects.get(user__email="admin@admin.com")
+        context.update(
+            {
+                # "profile": profile,
+                "works": portfolio,
+                "post": post,
+            }
+        )
+        return context
+
+    def get_queryset(self):
+        # return all the comment objects from a specified post
+        post_id = self.kwargs['pk']
+        post = Post.objects.get(id=post_id)
+        return self.model.objects.filter(post=post,approved=True)
 
 def blog_search(request):
     posts =Post.objects.filter(published_date__lte=timezone.now())

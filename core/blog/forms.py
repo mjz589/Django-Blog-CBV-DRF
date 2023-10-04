@@ -6,8 +6,7 @@ class CommentForm(ModelForm):
     # captcha = CaptchaField()
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
-        self.fields['subject'].required = False
-        
+
     class Meta:
         model = Comment
-        fields = ['post','name','email','subject','message']
+        fields = ['post','name','email', 'message']

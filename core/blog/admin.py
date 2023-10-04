@@ -19,7 +19,7 @@ admin.site.register(Category)
 class CommentAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_date'
     empty_value_display = '-'
-    list_display = ('name', 'subject', 'post',  'approved', 'created_date',)
+    list_display = ('email', 'id', 'post',  'approved', 'created_date',)
     list_filter = ('approved',)
     ordering = ('-created_date',)
-    search_fields = ('post', 'email', 'subject','name',)
+    search_fields = ('post', 'email', 'name',)
