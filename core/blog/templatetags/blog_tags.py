@@ -18,10 +18,10 @@ def upto(value, delimiter=None):
     return value.split(delimiter)[0]
 upto.is_safe = True
 
-@register.inclusion_tag('blog/widgets/latest_posts_widget.html', name='latest_posts')
+@register.inclusion_tag('blog/sidebar/recent-posts.html', name='recent_posts')
 def latest_posts(arg=5):
     posts = Post.objects.filter(publish_status= True).order_by('-published_date')[:arg]
-    return {'pop_posts': posts}
+    return {'posts': posts}
 
 
 
