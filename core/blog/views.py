@@ -101,10 +101,10 @@ def blog_view(request, **kwargs):
 #         else:
 #             return render(request, 'account/login.html', )
             
-class BlogDetail(DetailView):
-    model = Post
-    template_name = "blog/blog-details.html"
-    context_object_name = "post"
+# class BlogDetail(DetailView):
+#     model = Post
+#     template_name = "blog/blog-details.html"
+#     context_object_name = "post"
 
 class CommentCreate(CreateView):
     model = Comment
@@ -115,28 +115,26 @@ class CommentCreate(CreateView):
         form.instance.post = Post.objects.get(id=self.kwargs['pk'])
         return super().form_valid(form)
 
-class CommentList(ListView):
+class BlogDetail(ListView):
     model = Comment
     template_name = "blog/blog-details.html"
-    def get_context_data(self, **kwargs):
-        context = super(CommentList, self).get_context_data(**kwargs)
-        post = Post.objects.get(id=self.kwargs['pk'])
-        profile = Profile.objects.get(user__email="admin@admin.com")
-        context.update(
-            {
-                # "profile": profile,
-                "works": portfolio,
-                "post": post,
-            }
-        )
-        return context
+    context_object_name = "comments"
 
     def get_queryset(self):
         # return all the comment objects from a specified post
         post_id = self.kwargs['pk']
         post = Post.objects.get(id=post_id)
         return self.model.objects.filter(post=post,approved=True)
-
+    
+    def get_context_data(self, **kwargs):
+        context = super(BlogDetail, self).get_context_data(**kwargs)
+        post = Post.objects.get(id=self.kwargs['pk'])
+        context.update(
+            {
+                "post": post,
+            }
+        )
+        return context
 def blog_search(request):
     posts =Post.objects.filter(published_date__lte=timezone.now())
     if request.method == 'GET':
