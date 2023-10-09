@@ -12,65 +12,121 @@
 {% block content %}
 
 
-    <main id="main" style="background-color: black;">
-        <section id="blog" class="blog-mf sect-pt4 route">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="title-box text-center">
-                            <h3 class="title-a" style="color:azure">
-                                Blog
-                            </h3>
-                            <p class="subtitle-a" style="color:azure">
-                                Read my latest articles and posts.
-                            </p>
-                            <div class="line-mf"></div>
-                        </div>
+<main id="main" style="background-color: black;">
+    <section id="blog" class="blog-mf sect-pt4 route">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-box text-center">
+                        <h3 class="title-a" style="color:azure">
+                            Blog
+                        </h3>
+                        <p class="subtitle-a" style="color:azure">
+                            Read my latest articles and posts.
+                        </p>
+                        <div class="line-mf"></div>
                     </div>
-                </div>
-                <div class="row">
-                    {% for post in posts %}
-                    <div class="col-md-4">
-                        <div class="card card-blog">
-                            <div class="card-img">
-                                <a href="{% url 'blog:detail' pk=post.id %}">
-                                    {% thumbnail post.image "1280x720" crop="center" as im %}
-                                    <img src="{{ im.url }}" max-width="{{im.width}}" max-height="{{im.height}}" alt=""
-                                        class="img-fluid">
-                                    {% endthumbnail %}
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-category-box">
-                                    <div class="card-category">
-                                        <h6 class="category">{{post.category.first}}</h6>
-                                    </div>
-                                </div>
-                                <h3 class="card-title"><a href="{% url 'blog:detail' pk=post.id %}">{{post.title}}</a>
-                                </h3>
-                                <p class="card-description">
-                                    {{post.summary}}
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="post-author">
-                                    <a href="{% url 'website:index' %}#about">
-                                        <img src="{{post.author.image.url}}" alt="" class="avatar rounded-circle">
-                                        <span class="author">{{post.author.first_name}} {{post.author.last_name}}</span>
-                                    </a>
-                                </div>
-                                <div class="post-date">
-                                    <span class="bi bi-clock"></span> {{post.estimated_time}} min
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-
                 </div>
             </div>
-        </section>
-    </main><!-- End #main -->
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-md-4">
+                    <div class="card card-blog">
+                        <div class="card-img">
+                            <a href="{% url 'blog:detail' pk=post.id %}">
+                                {% thumbnail post.image "1280x720" crop="center" as im %}
+                                <img src="{{ im.url }}" max-width="{{im.width}}" max-height="{{im.height}}" alt=""
+                                    class="img-fluid">
+                                {% endthumbnail %}
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-box">
+                                <div class="card-category">
+                                    <h6 class="category">{{post.category.first}}</h6>
+                                </div>
+                            </div>
+                            <h3 class="card-title"><a href="{% url 'blog:detail' pk=post.id %}">{{post.title}}</a>
+                            </h3>
+                            <p class="card-description">
+                                {{post.summary}}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="post-author">
+                                <a href="{% url 'website:index' %}#about">
+                                    <img src="{{post.author.image.url}}" alt="" class="avatar rounded-circle">
+                                    <span class="author">{{post.author.first_name}} {{post.author.last_name}}</span>
+                                </a>
+                            </div>
+                            <div class="post-date">
+                                <span class="bi bi-clock"></span> {{post.estimated_time}} min
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+</main><!-- End #main -->
+
+{% if page_obj.has_other_pages %}
+<!-- pagination -->
+<div class="container">
+
+    <div class="pagination p1">
+        <ul>
+            <h4>Pages</h4>
+
+            <!-- previous and first page -->
+            {% if current_page.number != 1 %}
+            <a href="/?page={{previous_page}}">
+                <li>
+                    < </li>
+            </a>
+
+            {% if current_page.number != 2 %}
+            <a href="/?page={{first_page}}">
+                <li> First </li>
+            </a>
+            {% endif %}
+            {% endif %}
+            <!-- end -->
+
+            <!-- pagination numbers -->
+            {% for i in pages %}
+            {% if page_obj.number == i %}
+            <a class="is-active" href="/?page={{i}}">
+                <li>{{i}}</li>
+            </a>
+            {% else %}
+            <a href="/?page={{i}}">
+                <li>{{i}}</li>
+            </a>
+            {% endif %}
+            {% endfor %}
+            <!-- end -->
+
+            <!-- next and last page -->
+            {% if current_page.number != next_page %}
+            <a href="/?page={{next_page}}">
+                <li>></li>
+            </a>
+            {% if last_page != 1 %}
+            <a href="/?page={{last_page}}">
+                <li> Last </li>
+            </a>
+            {% endif %}
+
+            {% endif %}
+            <!-- end -->
+
+        </ul>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
 <!-- </body> -->
