@@ -1,10 +1,26 @@
 from django.core.management.base import BaseCommand
 from faker import Faker
-from datetime import datetime
-from random import randint
+from django.utils import timezone
+from random import randint, choices
 from accounts.models import User, Profile
 from ...models import Post, Comment, Category
 
+category_list = [
+    "IT",
+    "design",
+    "development",
+    "backend",
+    "frontend",
+]
+tag_list = [
+    "django",
+    "python",
+    "sql",
+    "nginx",
+    "restframework",
+    "C++",
+    "C#",
+]
 # fake posts and comments data
 class Command(BaseCommand):
     help = "inserting dummy data into database: post and comment"
@@ -27,26 +43,31 @@ class Command(BaseCommand):
             profile.last_name = self.fake.last_name()
             profile.description = self.fake.paragraph(nb_sentences=5)
             profile.save()
-            category = Category.objects.create(
-                name = self.fake.last_name()
-            )
+            for name in category_list:
+                Category.objects.get_or_create(
+                    name = name,
+                )
             for _ in range(10):
                 post = Post.objects.create(
                     author = profile,
                     title = self.fake.paragraph(nb_sentences=1),
                     summary= self.fake.paragraph(nb_sentences=3),
                     content = self.fake.paragraph(nb_sentences=10),
-                    category = category.set(category),
-                    tags = self.fake.last_name(),
                     estimated_time = randint(5,15),
                     counted_views = randint(10,5000),
                     counted_likes = randint(1,500),
                     publish_status = self.fake.boolean(),
-                    published_date = datetime.now(),
+                    published_date = timezone.now(),
                 )
+                # many to many fields : category - tags
+                category_name = choices(category_list, k=3)[0]  # Extract the category name from the tuple
+                category, _ = Category.objects.get_or_create(name=category_name)
+                tags = choices(tag_list, k=2),
+                post.category.set([category])
+                post.tags.set(*tags)
                 for _ in range(5):
                     Comment.objects.create(
-                        Post = post,
+                        post = post,
                         name = self.fake.first_name(),
                         email = self.fake.email(),
                         message = self.fake.paragraph(nb_sentences=1),
