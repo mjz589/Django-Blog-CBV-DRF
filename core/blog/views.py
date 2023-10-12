@@ -54,11 +54,10 @@ class BlogList(ListView):
         else:  # case 3
             pages = [x for x in range(page_no - 2, page_no + 3)]
 
-        # first page
+        # first and last page
         first_page = 1
-
-        # last page
         last_page = num_pages
+
         context.update(
             {
                 "pages": pages,
