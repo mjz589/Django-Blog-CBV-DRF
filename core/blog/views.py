@@ -35,7 +35,7 @@ class BlogList(ListView):
             posts = posts.filter(tags__name__in=[self.kwargs['tag_name']])
         return posts
     
-    paginate_by = 7
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super(BlogList, self).get_context_data(**kwargs)
@@ -54,31 +54,18 @@ class BlogList(ListView):
         else:  # case 3
             pages = [x for x in range(page_no - 2, page_no + 3)]
 
-        # previous page and first page
-        if page_no == 1:
-            previous_page = 1
-            first_page = 1
-        else:
-            previous_page = pages[page_no - 1] - 1
-            first_page = pages[0]
+        # first page
+        first_page = 1
 
-        # next page and last page
-        if page_no == pages[-1]:
-            next_page = page_no
-            last_page = 1
-        else:  # page_no ==1  , pages[page_no] == 2 , pages[page_no] +1 = 3
-            next_page = pages[page_no - 1] + 1
-            last_page = pages[-1]
-        page_count = len(pages)
+        # last page
+        last_page = num_pages
         context.update(
             {
                 "pages": pages,
                 "first_page": first_page,
                 "last_page": last_page,
-                "previous_page": previous_page,
-                "next_page": next_page,
                 "current_page": page_no,
-                "page_count": page_count,
+                "page_count": num_pages,
             }
         )
         return context

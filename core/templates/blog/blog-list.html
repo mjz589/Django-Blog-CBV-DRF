@@ -70,25 +70,22 @@
             </div>
         </div>
     </section>
-</main><!-- End #main -->
 
-{% if page_obj.has_other_pages %}
-<!-- pagination -->
-<div class="container">
 
-    <div class="pagination p1">
+    {% if page_obj.has_other_pages %}
+    <!-- pagination -->
+    <div class="pagination p1" style="display: flex; justify-content: center; align-items: center;">
         <ul>
-            <h4>Pages</h4>
 
             <!-- previous and first page -->
-            {% if current_page.number != 1 %}
-            <a href="/?page={{previous_page}}">
+            {% if current_page != 1 %}
+            <a href="/blog/?page={{page_obj.previous_page_number}}">
                 <li>
                     < </li>
             </a>
 
-            {% if current_page.number != 2 %}
-            <a href="/?page={{first_page}}">
+            {% if current_page != 2 %}
+            <a href="/blog/?page=1">
                 <li> First </li>
             </a>
             {% endif %}
@@ -97,12 +94,12 @@
 
             <!-- pagination numbers -->
             {% for i in pages %}
-            {% if page_obj.number == i %}
-            <a class="is-active" href="/?page={{i}}">
+            {% if current_page == i %}
+            <a class="is-active" href="/blog/?page={{i}}">
                 <li>{{i}}</li>
             </a>
             {% else %}
-            <a href="/?page={{i}}">
+            <a href="/blog/?page={{i}}">
                 <li>{{i}}</li>
             </a>
             {% endif %}
@@ -110,12 +107,12 @@
             <!-- end -->
 
             <!-- next and last page -->
-            {% if current_page.number != next_page %}
-            <a href="/?page={{next_page}}">
+            {% if page_obj.has_next %}
+            <a href="/blog/?page={{page_obj.next_page_number}}">
                 <li>></li>
             </a>
             {% if last_page != 1 %}
-            <a href="/?page={{last_page}}">
+            <a href="/blog/?page={{last_page}}">
                 <li> Last </li>
             </a>
             {% endif %}
@@ -125,7 +122,8 @@
 
         </ul>
     </div>
-</div>
+    <!-- pagination ends -->
+</main><!-- End #main -->
 {% endif %}
 
 {% endblock %}

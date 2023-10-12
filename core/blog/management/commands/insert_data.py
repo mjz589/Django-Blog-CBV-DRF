@@ -56,7 +56,7 @@ class Command(BaseCommand):
                     estimated_time = randint(5,15),
                     counted_views = randint(10,5000),
                     counted_likes = randint(1,500),
-                    publish_status = self.fake.boolean(),
+                    publish_status = True,
                     published_date = timezone.now(),
                 )
                 # many to many fields : category - tags
