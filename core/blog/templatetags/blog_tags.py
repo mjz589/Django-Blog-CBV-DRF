@@ -1,5 +1,5 @@
 from django import template
-from blog.models import *
+from blog.models import Post, Category, Comment
 from django.template.defaultfilters import stringfilter
 
 register = template.Library()

@@ -1,14 +1,11 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
-
 from django.utils import timezone
-from .models import *
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from blog.forms import CommentForm
-from django.contrib import messages
+# from django.contrib import messages
 from django.views.generic import (
     ListView,
     CreateView,
 )
+from .models import Post, Comment
+# from blog.forms import CommentForm
 
 # Create your views here.
 

@@ -1,7 +1,6 @@
 from django.db import models
 
 # from django.contrib.auth.models import User
-from accounts.models import User, Profile
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -42,7 +41,7 @@ class Post(models.Model):
         blank=True,
         null=True,
         verbose_name="audio",
-    )  #'video/x-msvideo', 'application/pdf', 'video/mp4',
+    )  # 'video/x-msvideo', 'application/pdf', 'video/mp4',
     video = ContentTypeRestrictedFileField(
         upload_to="uploads/",
         content_types=["video/mp4"],
