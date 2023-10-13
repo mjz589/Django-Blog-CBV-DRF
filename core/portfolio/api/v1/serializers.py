@@ -20,10 +20,6 @@ class PortfolioSerializer(serializers.ModelSerializer):
     image3 = serializers.SerializerMethodField(
         method_name="get_image3", read_only=True, allow_null=True
     )
-
-    relative_url = serializers.URLField(
-        source="get_absolute_api_url", read_only=True
-    )
     absolute_url = serializers.SerializerMethodField(method_name="get_abs_url")
 
     def get_abs_url(self, obj):
@@ -38,11 +34,14 @@ class PortfolioSerializer(serializers.ModelSerializer):
         rep['category'] = PortfolioCategorySerializer(
             instance.category,context={'request':request}, many=False).data
         # seperate list and detail for display
+        # don't show in detail
         if request.parser_context.get("kwargs").get("pk"):
-            rep.pop("relative_url", None)
             rep.pop("absolute_url", None)
+        # don't show in list
         else:
             rep.pop("created_date", None)
+            rep.pop("image2", None)
+            rep.pop("image3", None)
         return rep
 
     # get user image from profile
@@ -94,7 +93,6 @@ class PortfolioSerializer(serializers.ModelSerializer):
             "project_url",
             "created_date",
             "updated_date",
-            "relative_url",
             "absolute_url",
         )
         read_only_fields = (
