@@ -5,6 +5,7 @@ from .serializers import PostSerializer
 from ...models import Post
 from .permissions import IsOwnerOrReadOnly
 from .filters import PostFilter
+
 # or instead of ...models you can point models.py like this: todo.models
 from accounts.models import Profile
 
@@ -25,6 +26,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers  # vary_on_cookie,
 
+
 class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = PostSerializer
@@ -35,7 +37,9 @@ class PostModelViewSet(viewsets.ModelViewSet):
     #     "category", "tags",
     # ]
     search_fields = [
-        "title", "summary", "content",
+        "title",
+        "summary",
+        "content",
     ]
     ordering_fields = ["published_date"]
     # pagination
@@ -49,7 +53,9 @@ class PostModelViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # define the queryset wanted
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(
+            "-published_date"
+        )
         return posts
 
     # extra actions
@@ -61,4 +67,3 @@ class PostModelViewSet(viewsets.ModelViewSet):
     )
     def get_ok(self, request):
         return Response({"detail": "extra actions -OK-"})
-

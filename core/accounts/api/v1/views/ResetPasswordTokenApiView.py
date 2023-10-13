@@ -27,9 +27,7 @@ class ResetPasswordTokenApiView(generics.GenericAPIView):
     # Reset password by user_id given by jwt token
     def put(self, request, token, *args, **kwargs):
         try:
-            token = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=["HS256"]
-            )
+            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = token.get("user_id")
         # if token has been expired
         except ExpiredSignatureError:

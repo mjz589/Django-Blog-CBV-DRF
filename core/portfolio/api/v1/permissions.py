@@ -17,4 +17,3 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         # Instance must have an attribute named `owner`.
         if request.user.is_staff:
             return request.user
-

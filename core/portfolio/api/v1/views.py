@@ -1,6 +1,7 @@
 from .serializers import PortfolioSerializer
 from ...models import Portfolio
 from .permissions import IsAdminOrReadOnly
+
 # or instead of ...models you can point models.py like this: todo.models
 
 # class-based views for api
@@ -15,6 +16,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers  # vary_on_cookie,
 
+
 class WorkModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     serializer_class = PortfolioSerializer
@@ -24,7 +26,9 @@ class WorkModelViewSet(viewsets.ModelViewSet):
         "category",
     ]
     search_fields = [
-        "title", "client", "project_url",
+        "title",
+        "client",
+        "project_url",
     ]
     ordering_fields = ["created_date"]
     # pagination

@@ -6,14 +6,15 @@ from ...models import Portfolio, PortfolioCategory
 class PortfolioCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PortfolioCategory
-        fields = ['id', 'name',]
+        fields = [
+            "id",
+            "name",
+        ]
+
 
 class PortfolioSerializer(serializers.ModelSerializer):
-    
     # show image url
-    image1 = serializers.SerializerMethodField(
-        method_name="get_image1", read_only=True
-    )
+    image1 = serializers.SerializerMethodField(method_name="get_image1", read_only=True)
     image2 = serializers.SerializerMethodField(
         method_name="get_image2", read_only=True, allow_null=True
     )
@@ -31,8 +32,9 @@ class PortfolioSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         rep = super().to_representation(instance)
         # show category
-        rep['category'] = PortfolioCategorySerializer(
-            instance.category,context={'request':request}, many=False).data
+        rep["category"] = PortfolioCategorySerializer(
+            instance.category, context={"request": request}, many=False
+        ).data
         # seperate list and detail for display
         # don't show in detail
         if request.parser_context.get("kwargs").get("pk"):
@@ -49,7 +51,7 @@ class PortfolioSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         image_url = instance.image1.url
         return request.build_absolute_uri(image_url)
-    
+
     def get_image2(self, instance):
         if instance.image2:
             request = self.context.get("request")
@@ -57,7 +59,7 @@ class PortfolioSerializer(serializers.ModelSerializer):
             return request.build_absolute_uri(image_url)
         else:
             return None
-        
+
     def get_image3(self, instance):
         if instance.image3:
             request = self.context.get("request")
@@ -95,6 +97,4 @@ class PortfolioSerializer(serializers.ModelSerializer):
             "updated_date",
             "absolute_url",
         )
-        read_only_fields = (
-            "created_date",
-        )
+        read_only_fields = ("created_date",)

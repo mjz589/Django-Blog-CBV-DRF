@@ -2,17 +2,19 @@ from rest_framework import serializers
 
 from ...models import Post, Comment, Category
 
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name',]
+        fields = [
+            "id",
+            "name",
+        ]
+
 
 class PostSerializer(serializers.ModelSerializer):
-    
     # show image url
-    image = serializers.SerializerMethodField(
-        method_name="get_image", read_only=True
-    )
+    image = serializers.SerializerMethodField(method_name="get_image", read_only=True)
     # show post comments
     comments = serializers.SerializerMethodField(
         method_name="get_comments",
@@ -21,17 +23,9 @@ class PostSerializer(serializers.ModelSerializer):
     # tags = serializers.PrimaryKeyRelatedField(
     #     queryset=Post.objects.all().values_list('tags'), many=True
     # )
-    tags = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
-    
-    
+    tags = serializers.SlugRelatedField(many=True, read_only=True, slug_field="name")
 
-    relative_url = serializers.URLField(
-        source="get_absolute_api_url", read_only=True
-    )
+    relative_url = serializers.URLField(source="get_absolute_api_url", read_only=True)
     absolute_url = serializers.SerializerMethodField(method_name="get_abs_url")
 
     def get_abs_url(self, obj):
@@ -45,8 +39,9 @@ class PostSerializer(serializers.ModelSerializer):
         # show user as first name
         rep["author"] = instance.author.user.email
         # show category
-        rep['category'] = CategorySerializer(
-            instance.category,context={'request':request}, many=True).data
+        rep["category"] = CategorySerializer(
+            instance.category, context={"request": request}, many=True
+        ).data
         # seperate list and detail for display
         if request.parser_context.get("kwargs").get("pk"):
             rep.pop("relative_url", None)
@@ -62,15 +57,16 @@ class PostSerializer(serializers.ModelSerializer):
         return request.build_absolute_uri(image_url)
 
     def get_comments(self, instance):
-        comments = Comment.objects.filter(
-            post=instance, approved=True).values(
+        comments = Comment.objects.filter(post=instance, approved=True).values(
             "id",
             "post_id",
             "name",
             "email",
             "message",
-            "created_date",)
+            "created_date",
+        )
         return comments
+
     # user must automatically be provided and not be written by users
     """ you can do it like this:
         user = serializers.PrimaryKeyRelatedField(read_only=True)
@@ -101,9 +97,4 @@ class PostSerializer(serializers.ModelSerializer):
             "absolute_url",
             "published_date",
         )
-        read_only_fields = (
-            "author",
-            "image",
-            "counted_views",
-            "counted_likes"
-        )
+        read_only_fields = ("author", "image", "counted_views", "counted_likes")

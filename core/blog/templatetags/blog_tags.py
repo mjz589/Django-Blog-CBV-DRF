@@ -4,33 +4,37 @@ from django.template.defaultfilters import stringfilter
 
 register = template.Library()
 
-@register.simple_tag(name='total_comments')
+
+@register.simple_tag(name="total_comments")
 def get_total_comment(pid):
     return Comment.objects.filter(post=pid, approved=True).count()
 
-@register.simple_tag(name='total_likes')
+
+@register.simple_tag(name="total_likes")
 def get_total_like():
     pass
+
 
 @register.filter
 @stringfilter
 def upto(value, delimiter=None):
     return value.split(delimiter)[0]
+
+
 upto.is_safe = True
 
-@register.inclusion_tag('blog/sidebar/recent-posts.html', name='recent_posts')
+
+@register.inclusion_tag("blog/sidebar/recent-posts.html", name="recent_posts")
 def latest_posts(arg=5):
-    posts = Post.objects.filter(publish_status= True).order_by('-published_date')[:arg]
-    return {'posts': posts}
+    posts = Post.objects.filter(publish_status=True).order_by("-published_date")[:arg]
+    return {"posts": posts}
 
 
-
-@register.inclusion_tag('blog/blog-details.html', name='category')
+@register.inclusion_tag("blog/blog-details.html", name="category")
 def category_list():
-    posts = Post.objects.filter(publish_status= True)
+    posts = Post.objects.filter(publish_status=True)
     cat_dict = {}
     categories = Category.objects.all()
     for name in categories:
         cat_dict[name] = posts.filter(category=name).count()
-    return {'categories': cat_dict }
-
+    return {"categories": cat_dict}

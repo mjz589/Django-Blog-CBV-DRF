@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404 , HttpResponseRedirect, redirect
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 
 from django.utils import timezone
 from .models import *
@@ -15,22 +15,22 @@ from django.views.generic import (
 
 # Create your views here.
 
+
 def portfolio_view(request, *args, **kwargs):
     portfolio = Portfolio.objects.all()
-    
+
     # pagination
     portfolio = Paginator(portfolio, 3)
-    try :
-        page_number = request.GET.get('page')
+    try:
+        page_number = request.GET.get("page")
         portfolio = portfolio.get_page(page_number)
     except PageNotAnInteger:
         portfolio = portfolio.get_page(1)
     except EmptyPage:
         portfolio = portfolio.get_page(1)
 
-    context={'portfolio': portfolio}
-    return render(request, 'Portfolio/Portfolio.html', context)
-
+    context = {"portfolio": portfolio}
+    return render(request, "Portfolio/Portfolio.html", context)
 
 
 # def portfolio_single_view(request, pid):
@@ -38,6 +38,7 @@ def portfolio_view(request, *args, **kwargs):
 #     related_portfolio = Portfolio.objects.filter(type=Portfolio.type)
 #     context = {'Portfolio': Portfolio , 'related_portfolio':related_portfolio , }
 #     return render(request, 'Portfolio/Portfolio_details.html', context)
+
 
 class PortfolioDetail(DetailView):
     model = Portfolio

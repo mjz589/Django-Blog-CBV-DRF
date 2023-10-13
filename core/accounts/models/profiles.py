@@ -25,7 +25,7 @@ class Profile(models.Model):
 
     def get_full_name(self):
         return str(self.first_name) + " " + str(self.last_name)
-    
+
     def __str__(self):
         return self.user.email
 

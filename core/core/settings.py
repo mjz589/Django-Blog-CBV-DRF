@@ -33,16 +33,15 @@ ALLOWED_HOSTS = config(
 )
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     # taggit
     "taggit",
     # applications
@@ -61,7 +60,7 @@ INSTALLED_APPS = [
     # email template
     "mail_templated",
     # access for api from outside
-    "corsheaders", # this must be installed before running server
+    "corsheaders",  # this must be installed before running server
     # packages
     "sorl.thumbnail",
     "django.contrib.humanize",
@@ -86,9 +85,7 @@ ROBOTS_USE_SITEMAP = False
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_JQUERY_URL = (
-    "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
-)
+CKEDITOR_JQUERY_URL = "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar": "full",
@@ -113,25 +110,27 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates",],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / "templates",
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = "core.wsgi.application"
 
 
 # Database
@@ -140,18 +139,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # PostgreSQL database
 DATABASES = {
     "default": {
-        "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql",),
+        "ENGINE": config(
+            "DB_ENGINE",
+            default="django.db.backends.postgresql",
+        ),
         "NAME": config("DB_NAME", default="todo"),
         "USER": config("DB_USER", default="postgres"),
         "PASSWORD": config("DB_PASS", default="password"),
         "HOST": config("DB_HOST", default="db"),
         "PORT": config("DB_PORT", cast=int, default=5432),
         "OPTIONS": {
-            'client_encoding': 'UTF8',
+            "client_encoding": "UTF8",
         },
     }
 }
-
 
 
 # Password validation
@@ -159,16 +160,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 

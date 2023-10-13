@@ -14,9 +14,10 @@ from portfolio.models import Portfolio
 
 # Create your views here.
 
+
 class IndexView(ListView):
     model = Skill
-    template_name = 'index/index.html'
+    template_name = "index/index.html"
     context_object_name = "skills"
     delete_rejected_comments.delay()
 
@@ -24,16 +25,12 @@ class IndexView(ListView):
         # return all the Skill objects
         return self.model.objects.all()
 
-
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        # profile = Profile.objects.filter(user__email="admin@admin.com")
-        portfolio = Portfolio.objects.all().order_by('-created_date')[:6]
-        posts = Post.objects.all().order_by('-created_date')[:6]
-        profile = Profile.objects.get(user__email="admin@admin.com")
+        portfolio = Portfolio.objects.all().order_by("-created_date")[:6]
+        posts = Post.objects.all().order_by("-created_date")[:6]
         context.update(
             {
-                # "profile": profile,
                 "works": portfolio,
                 "posts": posts,
             }
@@ -41,7 +38,6 @@ class IndexView(ListView):
         return context
 
 
- 
 class ContactView(CreateView):
     model = Contact
     form_class = CreateContactForm

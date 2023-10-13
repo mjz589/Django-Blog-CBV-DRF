@@ -62,16 +62,10 @@ urlpatterns = [
         name="schema-redoc",
     ),
     re_path(r"^robots\.txt", include("robots.urls")),
-    re_path(
-        r"^ckeditor/", include("ckeditor_uploader.urls")
-    ),  # The CKEditor path
+    re_path(r"^ckeditor/", include("ckeditor_uploader.urls")),  # The CKEditor path
 ]
 
 # serving static and media for development
 if settings.DEBUG:
-    urlpatterns += static(
-        settings.STATIC_URL, document_root=settings.STATIC_ROOT
-    )
-    urlpatterns += static(
-        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
-    )
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

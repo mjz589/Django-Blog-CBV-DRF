@@ -1,8 +1,8 @@
-version: '3.8'
+version: '3.9'
 
 services:
   redis:
-    container_name: redis
+    container_name: redis-blog
     image: redis
     restart: always
     ports: 
@@ -11,7 +11,7 @@ services:
 
   backend:
     build: .
-    container_name: backend
+    container_name: backend-blog
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./core/:/app
@@ -103,20 +103,6 @@ services:
 
       #Specifies the port the IMAP server will listen on - allows standard email clients to view/retrieve messages
       #"ServerOptions__ImapPort"=143
-
-  master:
-    image: locustio/locust
-    ports:
-     - "8089:8089"
-    volumes:
-      - ./core/locust:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --master -H http://backend:8000
-  
-  worker-locust:
-    image: locustio/locust
-    volumes:
-      - ./core/locust:/mnt/locust
-    command: -f /mnt/locust/locustfile.py --worker --master-host master
 
 volumes:
   smtp4dev-data:

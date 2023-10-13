@@ -25,24 +25,27 @@ jkirchoff$ python3 sendgmail.py
 Email sent!
 """
 import smtplib
-def send_forget_password_mail(email,token):
+
+
+def send_forget_password_mail(email, token):
     # =============================================================================
     # Imports
     # =============================================================================
-    
 
     # =============================================================================
     # SET EMAIL LOGIN REQUIREMENTS
     # =============================================================================
-    
-    sent_from = 'themikey@themikey.ir'
+
+    sent_from = "themikey@themikey.ir"
 
     # =============================================================================
     # SET THE INFO ABOUT THE SAID EMAIL
     # =============================================================================
-    recipient_list = [email,]
+    recipient_list = [
+        email,
+    ]
     subject = "Your forget password link"
-    message = (f"Hi,\n you requested for reset password, if you didn't request just ignore this email.\nhttps://themikey.ir/reset-password/{token}/")
+    message = f"Hi,\n you requested for reset password, if you didn't request just ignore this email.\nhttps://themikey.ir/reset-password/{token}/"
 
     # email_text = """\
     # From: %s
@@ -57,6 +60,7 @@ def send_forget_password_mail(email,token):
     # Details: http://www.samlogic.net/articles/smtp-commands-reference.htm
     # =============================================================================
     from django.core.mail import send_mail
+
     # try:
     send_mail(
         subject,

@@ -40,18 +40,14 @@ class TestTaskApi:
         response = api_client.post(url, data=data)
         assert response.status_code == 400
 
-    def test_get_activation_response_200_status(
-        self, api_client, create_token
-    ):
+    def test_get_activation_response_200_status(self, api_client, create_token):
         # verify user by jwt
         token = create_token
         url = reverse("accounts:api-v1:activation", kwargs={"token": token})
         response = api_client.get(url)
         assert response.status_code == 200
 
-    def test_post_resend_activation_response_200_status(
-        self, api_client, common_user
-    ):
+    def test_post_resend_activation_response_200_status(self, api_client, common_user):
         # resend the verification email
         email = common_user.email
         url = reverse("accounts:api-v1:activation-resend")
@@ -61,9 +57,7 @@ class TestTaskApi:
         response = api_client.post(url, data=data)
         assert response.status_code == 200
 
-    def test_put_change_password_response_200_status(
-        self, api_client, common_user
-    ):
+    def test_put_change_password_response_200_status(self, api_client, common_user):
         # change password
         user = common_user
         url = reverse("accounts:api-v1:change-password")
@@ -87,25 +81,17 @@ class TestTaskApi:
         response = api_client.post(url, data=data, follow=True)
         assert response.status_code == 200
 
-    def test_get_reset_password_confirm_200_status(
-        self, api_client, create_token
-    ):
+    def test_get_reset_password_confirm_200_status(self, api_client, create_token):
         # confirm token and redirect to reset password form
         token = create_token
-        url = reverse(
-            "accounts:api-v1:reset-password-confirm", kwargs={"token": token}
-        )
+        url = reverse("accounts:api-v1:reset-password-confirm", kwargs={"token": token})
         response = api_client.get(url, follow=True)
         assert response.status_code == 200
 
-    def test_put_reset_password_token_200_status(
-        self, api_client, create_token
-    ):
+    def test_put_reset_password_token_200_status(self, api_client, create_token):
         # confirm token and reset password
         token = create_token
-        url = reverse(
-            "accounts:api-v1:reset-password-token", kwargs={"token": token}
-        )
+        url = reverse("accounts:api-v1:reset-password-token", kwargs={"token": token})
         data = {"password1": "@my/1234567", "password2": "@my/1234567"}
         response = api_client.put(url, data=data)
         assert response.status_code == 200
@@ -113,9 +99,7 @@ class TestTaskApi:
     @pytest.mark.skip(
         reason="object will not be found in real database, but exists in fake database. test it manually."
     )
-    def test_post_login_token_response_200_status(
-        self, api_client, create_token
-    ):
+    def test_post_login_token_response_200_status(self, api_client, create_token):
         # login token
         user = create_token
         api_client.force_authenticate(user)
@@ -130,9 +114,7 @@ class TestTaskApi:
     @pytest.mark.skip(
         reason="object will not be found in real database, but exists in fake database. test it manually."
     )
-    def test_post_jwt_create_response_200_status(
-        self, api_client, create_token
-    ):
+    def test_post_jwt_create_response_200_status(self, api_client, create_token):
         # login token
         user = create_token
         api_client.force_authenticate(user)
@@ -147,9 +129,7 @@ class TestTaskApi:
     @pytest.mark.skip(
         reason="object will not be found in real database, but exists in fake database. test it manually."
     )
-    def test_post_jwt_refresh_response_200_status(
-        self, api_client, create_token
-    ):
+    def test_post_jwt_refresh_response_200_status(self, api_client, create_token):
         # jwt refresh
         user = create_token
         api_client.force_authenticate(user)
@@ -164,9 +144,7 @@ class TestTaskApi:
     @pytest.mark.skip(
         reason="object will not be found in real database, but exists in fake database. test it manually."
     )
-    def test_post_jwt_verify_response_200_status(
-        self, api_client, create_token
-    ):
+    def test_post_jwt_verify_response_200_status(self, api_client, create_token):
         # login token
         user = create_token
         api_client.force_authenticate(user)
