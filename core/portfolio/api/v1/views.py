@@ -1,20 +1,10 @@
-from django.utils import timezone
-from rest_framework.response import Response
-
-from .serializers import PostSerializer
-from ...models import Post
-from .permissions import IsOwnerOrReadOnly
-from .filters import PostFilter
+from .serializers import PortfolioSerializer
+from ...models import Portfolio
+from .permissions import IsAdminOrReadOnly
 # or instead of ...models you can point models.py like this: todo.models
-from accounts.models import Profile
 
 # class-based views for api
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import serializers
-
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -25,19 +15,18 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers  # vary_on_cookie,
 
-class PostModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerOrReadOnly]
-    serializer_class = PostSerializer
+class WorkModelViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrReadOnly]
+    serializer_class = PortfolioSerializer
     # filters
-    filter_class = PostFilter
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    # filterset_fields = [
-    #     "category", "tags",
-    # ]
-    search_fields = [
-        "title", "summary", "content",
+    filterset_fields = [
+        "category",
     ]
-    ordering_fields = ["published_date"]
+    search_fields = [
+        "title", "client", "project_url",
+    ]
+    ordering_fields = ["created_date"]
     # pagination
     pagination_class = DefaultPagination
 
@@ -49,16 +38,5 @@ class PostModelViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # define the queryset wanted
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        posts = Portfolio.objects.all()
         return posts
-
-    # extra actions
-    @action(
-        methods=[
-            "GET",
-        ],
-        detail=False,
-    )
-    def get_ok(self, request):
-        return Response({"detail": "extra actions -OK-"})
-
