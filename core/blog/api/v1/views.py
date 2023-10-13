@@ -46,7 +46,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
         # user must automatically be provided and not be written by users
         profile = Profile.objects.get(user=self.request.user.id)
         serializer.save(user=profile) """
-    @method_decorator(cache_page(60*15))
+    @method_decorator(cache_page(60 * 15))
     @method_decorator(vary_on_headers("Authorization",))
     def get_queryset(self):
         # define the queryset wanted

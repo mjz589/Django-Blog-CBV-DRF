@@ -24,7 +24,7 @@ def setup_periodic_tasks(sender, **kwargs):
     # Calls test('hello') every 10 minutes.
     sender.add_periodic_task(
         crontab(
-            day_of_month == "1",  # the first day of the month
+            day_of_month="1",  # the first day of the month
         ),
         delete_rejected_comments.s(),
         name="delete rejected comments",

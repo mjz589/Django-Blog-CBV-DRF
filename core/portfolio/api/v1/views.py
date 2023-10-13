@@ -34,12 +34,8 @@ class WorkModelViewSet(viewsets.ModelViewSet):
     # pagination
     pagination_class = DefaultPagination
 
-    """ --- we used another method for user providing ---
-    def perform_create(self, serializer):
-        # user must automatically be provided and not be written by users
-        profile = Profile.objects.get(user=self.request.user.id)
-        serializer.save(user=profile) """
-
+    @method_decorator(cache_page(60 * 15))
+    @method_decorator(vary_on_headers("Authorization",))
     def get_queryset(self):
         # define the queryset wanted
         posts = Portfolio.objects.all()

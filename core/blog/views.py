@@ -22,16 +22,16 @@ class BlogList(ListView):
         )
 
         for post in posts:  # turn publish_status on(Ture) if published_date is passed
-            if post.publish_status == False:
+            if post.publish_status is False:
                 post.publish_status = True
                 post.save()
-        if self.kwargs.get("cat_name") != None:  # posts by category
+        if self.kwargs.get("cat_name") is not None:  # posts by category
             posts = posts.filter(category__name=self.kwargs["cat_name"])
 
         # if kwargs.get('author_username') != None:
         #     posts = posts.filter(author__username=kwargs['author_username'])
 
-        if self.kwargs.get("tag_name") != None:
+        if self.kwargs.get("tag_name") is not None:
             posts = posts.filter(tags__name__in=[self.kwargs["tag_name"]])
         return posts
 

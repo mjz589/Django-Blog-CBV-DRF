@@ -1,7 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from ckeditor_uploader.fields import RichTextUploadingField
-from django.core.exceptions import ValidationError
 
 # Create your models here.
 

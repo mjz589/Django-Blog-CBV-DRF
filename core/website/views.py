@@ -1,13 +1,10 @@
-from django.shortcuts import redirect, render
 from django.views.generic import (
-    View,
     ListView,
     CreateView,
 )
 from core.celery import delete_rejected_comments
 from django.urls import reverse_lazy
 from .models import Skill, Contact
-from accounts.models import Profile
 from .forms import CreateContactForm
 from blog.models import Post
 from portfolio.models import Portfolio
