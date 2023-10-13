@@ -1,7 +1,10 @@
+from django.utils import timezone
 from rest_framework.response import Response
-from .serializers import TaskSerializer
-from ...models import Task
+
+from .serializers import PostSerializer
+from ...models import Post
 from .permissions import IsOwnerOrReadOnly
+from .filters import PostFilter
 # or instead of ...models you can point models.py like this: todo.models
 from accounts.models import Profile
 
@@ -25,14 +28,15 @@ import requests
 from decouple import config
 
 
-class TaskModelViewSet(viewsets.ModelViewSet):
+class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
-    serializer_class = TaskSerializer
+    serializer_class = PostSerializer
     # filters
+    filter_class = PostFilter
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = [
-        "category", "tags",
-    ]
+    # filterset_fields = [
+    #     "category", "tags",
+    # ]
     search_fields = [
         "title", "summary", "content",
     ]
@@ -48,14 +52,8 @@ class TaskModelViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # define the queryset wanted
-        if self.request.user.is_verified:
-            profile = Profile.objects.get(user=self.request.user.id)
-            queryset = Task.objects.filter(user=profile.id)
-        else:
-            raise serializers.ValidationError(
-                {"detail": "User is not verified."}
-            )
-        return queryset
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        return posts
 
     # extra actions
     @action(

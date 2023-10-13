@@ -25,7 +25,7 @@ def latest_posts(arg=5):
 
 
 
-@register.inclusion_tag('blog/widgets/post_category_widget.html', name='category')
+@register.inclusion_tag('blog/blog-details.html', name='category')
 def category_list():
     posts = Post.objects.filter(publish_status= True)
     cat_dict = {}

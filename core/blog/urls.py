@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from blog.views import (
     BlogList,
     BlogDetail,
@@ -19,4 +19,6 @@ urlpatterns = [
     # path('author/<str:author_username>' , BlogList.as_view(), name='author'),
     path('search/', BlogSearch.as_view(), name='search'),
     path('rss/feed/', LatestEntriesFeed()),
+
+    path("api/v1/", include("blog.api.v1.urls")),
 ]

@@ -2,21 +2,11 @@
     <h5 class="sidebar-title">Recent Posts</h5>
     <div class="sidebar-content">
       <ul class="list-sidebar">
+        {% for post in posts %}
         <li>
-          <a href="#">Atque placeat maiores.</a>
+          <a href="{% url 'blog:detail' pk=post.id %}">{{post.title}}</a>
         </li>
-        <li>
-          <a href="#">Lorem ipsum dolor sit amet consectetur</a>
-        </li>
-        <li>
-          <a href="#">Nam quo autem exercitationem.</a>
-        </li>
-        <li>
-          <a href="#">Atque placeat maiores nam quo autem</a>
-        </li>
-        <li>
-          <a href="#">Nam quo autem exercitationem.</a>
-        </li>
+        {% endfor %}
       </ul>
     </div>
   </div>
