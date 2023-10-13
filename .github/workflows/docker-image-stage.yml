@@ -1,0 +1,36 @@
+name: Django Project CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      # .env stage
+      - name: Create env file for db
+        working-directory: envs/stage/db/
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+          cat .env
+      - name: Create env file for django
+        run: |
+          mkdir -p envs/stage/django
+          echo "${{ secrets.DJANGO }}" > envs/stage/django/.env
+          cat envs/stage/django/.env
+        
+      # end of .env creating
+      - name: Setup Docker-Compose
+        run: docker-compose -f docker-compose-stage.yml up -d
+      - name: PostgreSQL Check
+        run: |
+          DOCKER_CONTAINER_NAME="db"
+          timeout 90s bash -c "until docker exec $DOCKER_CONTAINER_NAME pg_isready; do sleep 5; done"
+      - name: Run Tests
+        run: |
+          docker-compose -f docker-compose-stage.yml run backend sh -c "flake8 && pytest ."

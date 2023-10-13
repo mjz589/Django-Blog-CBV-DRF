@@ -8,10 +8,13 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# install dependencies
+
+
+# Install Python dependencies
 RUN pip3 install --upgrade pip 
 COPY ./requirements.txt /app
 RUN pip3 install -r requirements.txt
+
 
 # copy project
 COPY ./core /app

@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports: 
+    - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
+  backend:
+    build: .
+    container_name: backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./core/:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY="test"
+      - DEBUG=True
+      - openweather_apikey="18f933ce846bc85b1007e70e217290fe"
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: celery -A core worker --loglevel=info
+    volumes:
+      - ./core/:/app
+    depends_on:
+      - redis
+      - backend
+
+  celery-beat:
+    build: .
+    command: celery -A core beat --loglevel=info
+    volumes:
+      - ./core/:/app
+    depends_on:
+      - redis
+      - backend
+      - worker
