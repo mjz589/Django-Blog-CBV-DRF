@@ -15,7 +15,7 @@ class BlogList(ListView):
     template_name = "blog/blog-list.html"
     context_object_name = "posts"
 
-    def get_queryset(self):
+    def get_queryset(self, request):
         # return all the comment objects from a specified post
         posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(
             "-published_date"
@@ -75,7 +75,7 @@ class BlogDetail(ListView):
     template_name = "blog/blog-details.html"
     context_object_name = "comments"
 
-    def get_queryset(self):
+    def get_queryset(self, request):
         # return all the comment objects from a specified post
         post_id = self.kwargs["pk"]
         post = Post.objects.get(id=post_id)
@@ -111,7 +111,7 @@ class BlogSearch(ListView):
     template_name = "blog/blog-list.html"
     context_object_name = "posts"
 
-    def get_queryset(self):
+    def get_queryset(self, request):
         # return all related posts
         posts = Post.objects.filter(published_date__lte=timezone.now())
         if s := self.request.GET.get("s"):

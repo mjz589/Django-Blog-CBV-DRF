@@ -34,9 +34,13 @@ class WorkModelViewSet(viewsets.ModelViewSet):
     # pagination
     pagination_class = DefaultPagination
 
+    # caching
     @method_decorator(cache_page(60 * 15))
     @method_decorator(vary_on_headers("Authorization",))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
         # define the queryset wanted
-        posts = Portfolio.objects.all()
-        return posts
+        works = Portfolio.objects.all()
+        return works
