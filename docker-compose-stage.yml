@@ -64,6 +64,7 @@ services:
 
   worker:
     build: .
+    container_name: worker-blog
     command: celery -A core worker --loglevel=info
     volumes:
       - ./core/:/app
@@ -74,6 +75,7 @@ services:
 
   celery-beat:
     build: .
+    container_name: celery-beat-blog
     command: celery -A core beat --loglevel=info
     volumes:
       - ./core/:/app
