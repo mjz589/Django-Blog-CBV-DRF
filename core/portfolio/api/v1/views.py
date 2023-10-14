@@ -35,7 +35,7 @@ class WorkModelViewSet(viewsets.ModelViewSet):
     pagination_class = DefaultPagination
 
     # caching
-    @method_decorator(cache_page(60 * 15))
+    @method_decorator(cache_page(60 * 10))
     @method_decorator(vary_on_headers("Authorization",))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
