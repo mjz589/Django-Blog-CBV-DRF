@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from ...models import Post, Comment, Category
-
+from accounts.models import Profile
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -73,7 +73,9 @@ class PostSerializer(serializers.ModelSerializer):
         or do it another way:  """
 
     def create(self, validated_data):
-        validated_data["user"] = self.context["request"].user
+        validated_data["author"] = Profile.objects.get(
+            user__id=self.context.get("request").user.id
+        )
         return super().create(validated_data)
 
     class Meta:
