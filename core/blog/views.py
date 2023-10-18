@@ -1,10 +1,12 @@
 from django.utils import timezone
+
 # from django.contrib import messages
 from django.views.generic import (
     ListView,
     CreateView,
 )
 from .models import Post, Comment
+
 # from blog.forms import CommentForm
 
 # Create your views here.

@@ -1,9 +1,10 @@
 from django.utils import timezone
 from rest_framework.response import Response
+
 # local
 from .serializers import PostSerializer
 from ...models import Post
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsAdminOrReadOnly
 from .filters import PostFilter
 
 # class-based views for api
@@ -22,9 +23,11 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers  # vary_on_cookie,
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 
 class PostModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
     serializer_class = PostSerializer
     # filters
     filter_class = PostFilter
@@ -43,7 +46,11 @@ class PostModelViewSet(viewsets.ModelViewSet):
 
     # caching
     @method_decorator(cache_page(60 * 10))
-    @method_decorator(vary_on_headers("Authorization",))
+    @method_decorator(
+        vary_on_headers(
+            "Authorization",
+        )
+    )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

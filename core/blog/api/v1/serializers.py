@@ -3,6 +3,7 @@ from rest_framework import serializers
 from ...models import Post, Comment, Category
 from accounts.models import Profile
 
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -73,10 +74,13 @@ class PostSerializer(serializers.ModelSerializer):
         or do it another way:  """
 
     def create(self, validated_data):
-        validated_data["author"] = Profile.objects.get(
-            user__id=self.context.get("request").user.id
-        )
-        return super().create(validated_data)
+        if self.context.get("request") and self.context.get("request").user.is_staff:
+            validated_data["author"] = Profile.objects.get(
+                user__id=self.context.get("request").user.id
+            )
+            return super().create(validated_data)
+        else:
+            raise serializers.ValidationError({"detail": "You must be a staff user"})
 
     class Meta:
         model = Post
