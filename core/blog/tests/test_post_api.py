@@ -28,7 +28,7 @@ def common_user():
 @pytest.fixture
 def staff_user():
     user = User.objects.create_user(
-        email="test333@test.com",
+        email="blog.api.admin@test.com",
         password="test/!1234",
         is_verified=True,
         is_active=True,

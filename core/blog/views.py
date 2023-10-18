@@ -17,7 +17,7 @@ class BlogList(ListView):
     template_name = "blog/blog-list.html"
     context_object_name = "posts"
 
-    def get_queryset(self, request):
+    def get_queryset(self):
         # return all the comment objects from a specified post
         posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(
             "-published_date"
