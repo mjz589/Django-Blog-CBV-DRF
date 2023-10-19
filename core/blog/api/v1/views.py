@@ -23,8 +23,6 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers  # vary_on_cookie,
 
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
 
 class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]

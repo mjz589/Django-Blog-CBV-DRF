@@ -54,7 +54,7 @@ def create_work(staff_user):
     profile.save()
     cat_list = []
     for name in category_list:
-        category, _ =PortfolioCategory.objects.get_or_create(
+        category, _ = PortfolioCategory.objects.get_or_create(
             name=name,
         )
         cat_list.append(category)

@@ -3,7 +3,7 @@ from rest_framework.test import APIClient
 from django.urls import reverse
 from django.utils import timezone
 from faker import Faker
-from random import randint, choice
+from random import choice
 from accounts.models import User, Profile
 from portfolio.models import Portfolio, PortfolioCategory
 

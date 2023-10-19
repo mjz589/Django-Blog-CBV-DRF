@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.exceptions import PermissionDenied
+# from rest_framework.exceptions import PermissionDenied
 from ...models import Portfolio, PortfolioCategory
 
 
