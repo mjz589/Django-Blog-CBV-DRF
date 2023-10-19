@@ -71,13 +71,13 @@ def create_work(staff_user):
 
 
 @pytest.mark.django_db
-class TestpostModels:
-    def test_get_post_retrieve_response_200_status(
-        self, api_client, create_post
+class TestworkModels:
+    def test_get_work_retrieve_response_200_status(
+        self, api_client, create_work
     ):
-        # show post list after redirecting to login url for authenticatication
+        # show work list after redirecting to login url for authenticatication
         url = reverse("portfolio:detail")
-        post = create_post
+        work = create_work
         response = api_client.get(url)
         assert response.status_code == 200
-        assert Portfolio.objects.filter(id=post.id, title=post.title).exists()
+        assert Portfolio.objects.filter(id=work.id, title=work.title).exists()
