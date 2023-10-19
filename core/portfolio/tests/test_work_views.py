@@ -76,8 +76,8 @@ class TestworkModels:
         self, api_client, create_work
     ):
         # show work list after redirecting to login url for authenticatication
-        url = reverse("portfolio:detail")
         work = create_work
+        url = reverse("portfolio:detail", kwargs={"pk": work.id})
         response = api_client.get(url)
         assert response.status_code == 200
         assert Portfolio.objects.filter(id=work.id, title=work.title).exists()
