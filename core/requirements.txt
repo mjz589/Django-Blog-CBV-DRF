@@ -1,0 +1,45 @@
+# general modules
+Django==4.2.4
+djangorestframework
+django-otp==1.1.6
+Pillow
+
+# env controlls
+python-decouple
+
+# third party modules
+sorl-thumbnail==12.9.0
+django-ckeditor==6.7.0
+django-taggit==4.0.0
+django-extensions==3.2.3
+django-js-asset==2.1.0
+django-robots==5.0
+django-compressor==4.3.1
+markdown
+django-filter
+drf-yasg[validation]
+djangorestframework-simplejwt
+django-cors-headers
+django-simple-captcha
+
+# email third party modules
+django-mail-templated
+
+# deployment modules
+gunicorn
+
+# database-PostgreSQL
+psycopg2-binary>=2.9
+
+# refactoring and tests
+black
+flake8
+pytest
+pytest-django
+Faker
+
+# background process and cache
+redis
+celery==5.3.4
+django-redis
+requests
