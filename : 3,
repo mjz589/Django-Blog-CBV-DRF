@@ -1,0 +1,22 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Thu 2023-10-19 21:41:36 UTC; 4s ago
+TriggeredBy: [0;1;32m●[0m docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 3339 (dockerd)
+      Tasks: 10
+     Memory: 24.5M
+        CPU: 463ms
+     CGroup: /system.slice/docker.service
+             └─3339 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Oct 19 21:41:35 ubuntu-g1-small5-foroogh-1 systemd[1]: Starting Docker Application Container Engine...
+Oct 19 21:41:35 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:35.588839251Z" level=info msg="Starting up"
+Oct 19 21:41:35 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:35.679511573Z" level=info msg="[graphdriver] using prior storage driver: overlay2"
+Oct 19 21:41:35 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:35.685624354Z" level=info msg="Loading containers: start."
+Oct 19 21:41:36 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:36.087292689Z" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
+Oct 19 21:41:36 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:36.155814567Z" level=info msg="Loading containers: done."
+Oct 19 21:41:36 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:36.199273815Z" level=info msg="Docker daemon" commit=1a79695 graphdriver=overlay2 version=24.0.6
+Oct 19 21:41:36 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:36.199508753Z" level=info msg="Daemon has completed initialization"
+Oct 19 21:41:36 ubuntu-g1-small5-foroogh-1 dockerd[3339]: time="2023-10-19T21:41:36.240819006Z" level=info msg="API listen on /run/docker.sock"
+Oct 19 21:41:36 ubuntu-g1-small5-foroogh-1 systemd[1]: Started Docker Application Container Engine.
