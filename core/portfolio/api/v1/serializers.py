@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.exceptions import PermissionDenied
+# from rest_framework.exceptions import PermissionDenied
 from ...models import Portfolio, PortfolioCategory
 
 
@@ -74,11 +74,10 @@ class PortfolioSerializer(serializers.ModelSerializer):
         or do it another way:  """
 
     def create(self, validated_data):
-        request = self.context["request"]
-        if not request.user.is_staff:
-            raise PermissionDenied("Only admin users can create portfolios.")
-        validated_data["user"] = request.user
-        return super().create(validated_data)
+        if self.context.get("request") and self.context.get("request").user.is_staff:
+            return super().create(validated_data)
+        else:
+            raise serializers.ValidationError({"detail": "You must be a staff user"})
 
     class Meta:
         model = Portfolio

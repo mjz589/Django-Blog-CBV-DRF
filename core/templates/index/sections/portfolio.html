@@ -2,51 +2,53 @@
 {% load thumbnail %}
 
 <section id="work" class="portfolio-mf sect-pt4 route">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="title-box text-center">
-            <h3 class="title-a">
-              Portfolio
-            </h3>
-            <p class="subtitle-a">
-              Take a look at my works.
-            </p>
-            <div class="line-mf"></div>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="title-box text-center">
+          <h3 class="title-a">
+            Portfolio
+          </h3>
+          <p class="subtitle-a">
+            Take a look at my works.
+          </p>
+          <div class="line-mf"></div>
         </div>
       </div>
-      <div class="row">
-        {% for work in works %}
-        <div class="col-md-4">
-          <div class="work-box">
-            {% thumbnail work.image1 "960x600" crop="center" as im %}
-            <a href="{{im.url}}" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="{{im.url}}" class="img-fluid" max-width="{{im.width}}"
-                max-height="{{im.height}}" alt="">
-              </div>
-            </a>
-            {% endthumbnail %}
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
+    </div>
+    <div class="row">
+      {% for work in works %}
+      <div class="col-md-4">
+        <div class="work-box">
+          {% thumbnail work.image1 "960x600" crop="center" as im %}
+          <a href="{{im.url}}" data-gallery="portfolioGallery" class="portfolio-lightbox">
+            <div class="work-img">
+              <img src="{{im.url}}" class="img-fluid" max-width="{{im.width}}" max-height="{{im.height}}" alt="">
+            </div>
+          </a>
+          {% endthumbnail %}
+          <div class="work-content">
+            <div class="row">
+              <div class="col-sm-8">
+                <a href="{% url 'portfolio:detail' pk=work.id %}">
                   <h2 class="w-title">{{work.title}}</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">{{work.category}}</span> / <span class="w-date">{{work.created_date|date:"d M Y"}}</span>
-                  </div>
+                </a>
+                <div class="w-more">
+                  <span class="w-ctegory">{{work.category}}</span> / <span class="w-date">{{work.created_date|date:"d M
+                    Y"}}</span>
                 </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="{% url 'portfolio:detail' pk=work.id %}"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="w-like">
+                  <a href="{% url 'portfolio:detail' pk=work.id %}"> <span class="bi bi-plus-circle"></span></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {% endfor %}
-
       </div>
+      {% endfor %}
+
     </div>
-  </section>
+  </div>
+</section>

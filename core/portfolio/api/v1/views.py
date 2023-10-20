@@ -36,7 +36,11 @@ class WorkModelViewSet(viewsets.ModelViewSet):
 
     # caching
     @method_decorator(cache_page(60 * 10))
-    @method_decorator(vary_on_headers("Authorization",))
+    @method_decorator(
+        vary_on_headers(
+            "Authorization",
+        )
+    )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

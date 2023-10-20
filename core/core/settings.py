@@ -143,9 +143,9 @@ DATABASES = {
             "DB_ENGINE",
             default="django.db.backends.postgresql",
         ),
-        "NAME": config("DB_NAME", default="todo"),
-        "USER": config("DB_USER", default="postgres"),
-        "PASSWORD": config("DB_PASS", default="password"),
+        "NAME": config("DB_NAME", default="postgres"),
+        "USER": config("DB_USER", default="mjz589"),
+        "PASSWORD": config("DB_PASS", default="Mohammad2237!"),
         "HOST": config("DB_HOST", default="db"),
         "PORT": config("DB_PORT", cast=int, default=5432),
         "OPTIONS": {
