@@ -36,6 +36,7 @@ jobs:
         run: |
           docker-compose -f docker-compose-stage.yml run backend sh -c "flake8 && pytest ."
 
+
   Deploy:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }} 
     name: Deploy
