@@ -37,6 +37,17 @@ class IndexView(ListView):
 
 class ContactView(CreateView):
     model = Contact
-    form_class = CreateContactForm
-    success_url = reverse_lazy("website:index")
-    template_name = "index/sections/contact.html"
+    template_name = "index/index.html"
+    success_url =  reverse_lazy("website:index")
+    fields = [
+        "name",
+        "email",
+        "subject",
+        "message",
+    ]
+    
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+    
+    # form_class = CreateContactForm

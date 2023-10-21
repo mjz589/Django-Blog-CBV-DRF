@@ -15,26 +15,30 @@
                     </h5>
                   </div>
                   <div>
-                    <form action="{% url 'website:contact' %}" method="post" role="form" class="php-email-form">
+                    <form action="{% url 'website:contact' %}" method="post">
                       
-                      {% csrf_token %}
-
                       <div class="row">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_id" value="contact">
+                        <!-- Name -->
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
                             <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                           </div>
                         </div>
+                        <!-- Email -->
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                           </div>
                         </div>
+                        <!-- Subject -->
                         <div class="col-md-12 mb-3">
                           <div class="form-group">
                             <input type="text" class="form-control" name="subject"  placeholder="Subject" required>
                           </div>
                         </div>
+                        <!-- Message -->
                         <div class="col-md-12">
                           <div class="form-group">
                             <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
@@ -50,6 +54,7 @@
                         </div>
                       </div>
                     </form>
+                    
                   </div>
                 </div>
                 <div class="col-md-6">
