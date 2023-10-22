@@ -43,7 +43,6 @@ class WorkModelViewSet(viewsets.ModelViewSet):
     )
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-    
 
     def get_queryset(self):
         # define the queryset wanted
