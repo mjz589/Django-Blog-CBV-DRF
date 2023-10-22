@@ -5,7 +5,6 @@ from django.views.generic import (
 from core.celery import delete_rejected_comments
 from django.urls import reverse_lazy
 from .models import Skill, Contact
-from .forms import CreateContactForm
 from blog.models import Post
 from portfolio.models import Portfolio
 
@@ -37,6 +36,15 @@ class IndexView(ListView):
 
 class ContactView(CreateView):
     model = Contact
-    form_class = CreateContactForm
+    template_name = "index/index.html"
     success_url = reverse_lazy("website:index")
-    template_name = "index/sections/contact.html"
+    # form_class = CreateContactForm
+    fields = [
+        "name",
+        "email",
+        "subject",
+        "message",
+    ]
+
+    def form_valid(self, form):
+        return super().form_valid(form)

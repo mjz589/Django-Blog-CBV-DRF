@@ -8,5 +8,5 @@ app_name = "website"
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    path("contact/", ContactView.as_view(), name="contact"),
+    path("contact", ContactView.as_view(), name="contact"),
 ]
