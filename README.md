@@ -128,10 +128,9 @@ Distributed under the MIT License. See [LICENSE](https://github.com/mohamadjavad
 
 ## Authors
 
-* **Mohamad Javad Zare** - *Computer Science Student* - [Mohamad Javad Zare](https://github.com/mohamadjavadzare/) - **
+* **Mohamad Javad Zare** - *Computer Science Student* - [Mohamad Javad Zare](https://github.com/mohamadjavadzare/)
 
 ## Acknowledgements
 
 * [ShaanCoding](https://github.com/ShaanCoding/)
 * [Othneil Drew](https://github.com/othneildrew/Best-README-Template)
-* []()
