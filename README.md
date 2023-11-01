@@ -34,7 +34,7 @@
 
 ## About The Project
 
-![Screen Shot](core\assets\img\shot-1.png)
+![Screen Shot]([core\assets\img\shot-1.png](https://github.com/mohamadjavadzare/Django-Blog-CBV-DRF/blob/main/core/assets/img/shot-1.png))
 
 Welcome to this repository, a comprehensive blog web project that incorporates a powerful stack of tools and technologies. This project leverages Python, Django, Django REST Framework, Docker, Nginx, Redis, PostgreSQL, Gunicorn, and Celery to create a robust and dynamic blogging platform.
 
