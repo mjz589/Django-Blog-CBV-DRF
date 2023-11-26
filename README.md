@@ -75,7 +75,7 @@ npm install npm@latest -g
 ```
 
 ### Installation
-
+<!-- 
 1. Get a free API Key at [https://example.com](https://example.com)
 
 2. Clone the repo
@@ -121,7 +121,7 @@ Contributions are what make the open source community such an amazing place to b
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
+-->
 ## License
 
 Distributed under the MIT License. See [LICENSE](https://github.com/mohamadjavadzare/Django-Blog-CBV-DRF/blob/main/LICENSE.md) for more information.
