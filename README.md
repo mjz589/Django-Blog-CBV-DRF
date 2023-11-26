@@ -59,6 +59,7 @@ Additionally, Celery, a distributed task queue system, is implemented to handle 
 * [Gunicorn](https://gunicorn.org/)
 * [Nginx](https://www.nginx.com/)
 
+<!-- 
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -75,7 +76,7 @@ npm install npm@latest -g
 ```
 
 ### Installation
-<!-- 
+
 1. Get a free API Key at [https://example.com](https://example.com)
 
 2. Clone the repo
